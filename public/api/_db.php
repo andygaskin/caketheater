@@ -13,7 +13,6 @@ function ct_db(): mysqli
     'gaskinmedia_caketheater1'
   );
 
-
   $mysqli->set_charset('utf8mb4');
 
   return $mysqli;

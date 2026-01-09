@@ -5,12 +5,12 @@ const { data, pending, error } = await useAsyncData("featured", fetchFeatured);
 
 <template>
   <main style="padding: 2rem">
-    <pre>len: {{ data?.length }}</pre>
-    <pre>first: {{ data?.[0] }}</pre>
-    <pre>last: {{ data?.[data?.length - 1] }}</pre>
     <h1>Cake Theater</h1>
-    <p>Hey guys <i class="pi pi-star" /></p>
-    <Button label="Verify" />
+    <h2>
+      Where cakes take center stage.<br />
+      Share your designs. Spark fresh ideas. <i class="pi pi-star" />
+    </h2>
+    <!-- <Button label="Verify" /> -->
     <hr />
 
     <!-- Loading -->

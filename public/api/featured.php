@@ -32,7 +32,7 @@ try {
   $result = $db->execute_query($sql, [1, 1]);
   $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-  // Normalize keys/strings 
+  // Normalize keys/strings (somewhat optional)
   $featured = array_map(static fn(array $r) => [
     'slug' => (string)$r['slug'],
     'title' => (string)$r['title'],
@@ -40,7 +40,8 @@ try {
     'cover_filename' => (string)$r['cover_filename'],
   ], $rows);
 
-  ct_json($featured);
+  ct_json($featured); //from _json.php
+
 } catch (mysqli_sql_exception $e) {
   // consider logging $e->getMessage() somewhere secure
   ct_json(['featured' => [], 'error' => 'Unable to load featured cakes.'], 500);

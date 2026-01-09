@@ -22,11 +22,16 @@ export default defineNuxtConfig({
   routeRules: {
     // SSG / prerender
     "/": { prerender: true },
+    "/categories/**": { prerender: true },
+
+    "/contact": { prerender: true },
     // "/about": { prerender: true },
-    // "/contact": { prerender: true },
 
     // SSR (frequently updated)
-    "/cakes/**": { prerender: false },
+    // "/cakes/**": { prerender: false },
+
+    //SWR caching  (Stale-While-Revalidate)
+    "/cakes/**": { swr: 60 * 5 }, //5 minutes
 
     // CSR (app/admin)
     "/admin/**": { ssr: false },
