@@ -5,7 +5,7 @@ const { data, pending, error } = await useAsyncData("featured", fetchFeatured);
 </script>
 
 <template>
-  <main>
+ 
     <h1>Cake Theater</h1>
     <h2>
       Where cakes take center stage.<br />
@@ -43,5 +43,5 @@ const { data, pending, error } = await useAsyncData("featured", fetchFeatured);
         <span>by {{ cake.baker }}</span>
       </div>
     </div>
-  </main>
+ 
 </template>
