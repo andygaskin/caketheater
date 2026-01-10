@@ -20,20 +20,18 @@ export default defineNuxtConfig({
   },
   // NOTE: This requires Nitro/Node hosting. Do not deploy as pure static if you want /cakes SSR.
   routeRules: {
-    // SSG / prerender
+    // SSG ("Static Site Generation" / prerender)
     "/": { prerender: true },
     "/categories/**": { prerender: true },
-
     "/contact": { prerender: true },
-    // "/about": { prerender: true },
 
-    // SSR (frequently updated)
-    // "/cakes/**": { prerender: false },
-
-    //SWR caching  (Stale-While-Revalidate)
+    //SWR caching  ("Stale-While-Revalidate", show  cached version for x time until revalidating and serving fresh version)
     "/cakes/**": { swr: 60 * 5 }, //5 minutes
 
-    // CSR (app/admin)
+    // SSR ("Server Side Rendering". For frequently updated content)
+    // "/cakes/**": { prerender: false },
+
+    // CSR ("Client Side Rendering")
     "/admin/**": { ssr: false },
     "/baker/**": { ssr: false },
   },

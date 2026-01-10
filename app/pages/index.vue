@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { fetchFeatured } from "@/services/featuredApi";
+
 const { data, pending, error } = await useAsyncData("featured", fetchFeatured);
 </script>
 
 <template>
-  <main style="padding: 2rem">
+  <main>
     <h1>Cake Theater</h1>
     <h2>
       Where cakes take center stage.<br />
@@ -14,7 +15,7 @@ const { data, pending, error } = await useAsyncData("featured", fetchFeatured);
     <hr />
 
     <!-- Loading -->
-    <p v-if="pending">Loading featured cakes…</p>
+    <p v-if="pending">Loading featured cakes...</p>
 
     <!-- Error -->
     <div v-else-if="error">

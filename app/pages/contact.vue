@@ -1,5 +1,5 @@
 <template>
-  <main style="padding: 2rem">
+  <main>
     <h1>Contact Us!</h1>
   </main>
 </template>
