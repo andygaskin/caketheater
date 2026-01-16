@@ -1,0 +1,27 @@
+{
+  "cake": {
+    "id": 547,
+    "slug": "fantasy-pumpkin",
+    "title": "Fantasy Pumpkin",
+    "description": "This was a fun one to do! Customer was having an October birthday and wanted a pumpkin cake that wasn't like every other pumpkin cake! White almond cake with chocolate almond icing!",
+    "created_at": "2011-10-18 15:01:38",
+    "cover_image_id": 853,
+    "baker": { "display_name": "MammaDucky", "country": "US" },
+    "images": [
+      {
+        "id": 853,
+        "filename": "c5404a9dd7fc7f411fc7842fd37858d6",
+        "description": "",
+        "sort_order": 0,
+        "is_cover": true
+      },
+      {
+        "id": 854,
+        "filename": "89ec0c6df3e8c52dead762d2fd327f44",
+        "description": "",
+        "sort_order": 0,
+        "is_cover": false
+      }
+    ]
+  }
+}

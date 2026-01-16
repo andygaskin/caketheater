@@ -9,7 +9,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/_db.php';
 require_once __DIR__ . '/_json.php';
 
-const FEATURED_LIMIT = 4;
+const FEATURED_LIMIT = 6;
 
 try {
   $db = ct_db();
@@ -25,7 +25,7 @@ try {
     JOIN accounts a ON a.ID = c.user_id
     JOIN cake_images ci ON ci.ID = c.cover_image_id
     WHERE f.active = ? AND c.active = ?
-    ORDER BY f.ID ASC
+    ORDER BY f.ID DESC
     LIMIT " . FEATURED_LIMIT . "
   ";
 

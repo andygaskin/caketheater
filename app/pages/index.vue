@@ -64,11 +64,19 @@ useHead({
   display: grid;
   gap: 25px;
   grid-template-columns: 1fr 1fr 1fr;
-  margin: 0 auto 50px;
-  padding-top: 50px;
+  margin: 0 auto;
+  /* padding-top: 50px; */
   row-gap: var(--gap_large);
   transition: all 0.5s;
   /* width: 90%; */
+
+  @media (width<1000px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (width<650px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .block_holder {

@@ -48,7 +48,7 @@
         rgba(120, 95, 140, 0.06) 100%
       );
   overflow: hidden;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .lamplit-parchment::before {

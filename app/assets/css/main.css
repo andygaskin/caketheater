@@ -35,6 +35,9 @@ body {
 .page_wrapper {
   width: 1320px;
   margin: 0 auto;
+  @media (width<1400px) {
+    width: 90%;
+  }
 }
 /*Set global vars*/
 :root {
@@ -58,7 +61,7 @@ body {
 }
 
 .body_text {
-  color: #5863c7;
+  color: #000;
   font-family: var(--primary-font);
   font-size: 1.1rem;
 }
