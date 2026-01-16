@@ -22,10 +22,10 @@ export default defineNuxtConfig({
   css: ["primeicons/primeicons.css", "@/assets/css/main.css"],
   nitro: {
     prerender: {
-      crawlLinks: false, // don't accidentally prerender content
+      crawlLinks: true, // set to FALSE when deploying non-SSG!! This ensures we don't accidentally prerender content
     },
   },
-  // NOTE: This requires Nitro/Node hosting. Do not deploy as pure static if you want /cakes SSR.
+  // NOTE: This requires Nitro/Node hosting. Do not deploy as pure static (ie npm run generate) if you want /cakes SSR.
   routeRules: {
     // SSG ("Static Site Generation" / prerender)
     "/": { prerender: true },

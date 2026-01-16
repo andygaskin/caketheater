@@ -20,7 +20,9 @@
 <style scoped>
 .lamplit-parchment {
   border-radius: 12px;
-  box-shadow: var(--box_shadow);
+  box-shadow:
+    var(--box_shadow),
+    inset 0 0 8px rgba(0, 0, 0, 0.9);
   padding: var(--gap_large);
   position: relative;
   /* Base tone (warm paper) */
