@@ -12,7 +12,14 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ["primeicons/primeicons.css"],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
+  css: ["primeicons/primeicons.css", "@/assets/css/main.css"],
   nitro: {
     prerender: {
       crawlLinks: false, // don't accidentally prerender content
