@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import type { CakeDetail } from "@/services/cakeDetails";
 import { fetchCakeDetail } from "@/services/cakeDetails";
 import { countryName } from "@/utils/country";
 

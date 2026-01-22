@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "home-layout",
+});
 import { fetchFeatured } from "@/services/featuredApi";
 
 const { data, pending, error } = await useAsyncData("featured", fetchFeatured);
@@ -15,14 +18,20 @@ useHead({
 </script>
 
 <template>
-  <!--  
-    <h1>Cake Theater</h1>
-    <h2>
-      Where cakes take center stage.<br />
-      Share your designs. Spark fresh ideas. <i class="pi pi-star" />
-    </h2> -->
-  <!-- <Button label="Verify" /> -->
-  <!-- <hr /> -->
+  <div
+    style="
+      text-align: center;
+      margin-bottom: var(--gap_xlarge);
+      margin-top: var(--gap_large);
+    "
+  >
+    <h1>Where cakes take center stage</h1>
+    <div class="flex_align">
+      <h2>Share your designs</h2>
+      <i class="pi pi-star pi-spin" />
+      <h2>Spark fresh ideas</h2>
+    </div>
+  </div>
 
   <!-- Loading -->
   <p v-if="pending">Loading cakes...</p>
@@ -60,6 +69,32 @@ useHead({
   </div>
 </template>
 <style scoped>
+h1 {
+  /* font-family: Usual, var(--primary-font); */
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #fff;
+  font-size: 2.8rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  /* margin-bottom: var(--gap_small); */
+}
+
+h2 {
+  /* font-family: var(--primary-font); */
+  font-family: Georgia, "Times New Roman", Times, serif;
+
+  font-size: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  padding: 0;
+}
+
+.flex_align {
+  color: #dbc7fe;
+  display: flex;
+  align-items: center;
+  gap: var(--gap_small);
+  justify-content: center;
+}
 .main_card_holder {
   display: grid;
   gap: 25px;

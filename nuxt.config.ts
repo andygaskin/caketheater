@@ -17,12 +17,18 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "en",
       },
+      // link: [
+      //   {
+      //     rel: "stylesheet",
+      //     href: "https://use.typekit.net/xok1wfz.css",
+      //   },
+      // ],
     },
   },
   css: ["primeicons/primeicons.css", "@/assets/css/main.css"],
   nitro: {
     prerender: {
-      crawlLinks: true, // set to FALSE when deploying non-SSG!! This ensures we don't accidentally prerender content
+      crawlLinks: true, // *****set to FALSE when deploying non-SSG!! This ensures we don't accidentally prerender content pages******
     },
   },
   // NOTE: This requires Nitro/Node hosting. Do not deploy as pure static (ie npm run generate) if you want /cakes SSR.

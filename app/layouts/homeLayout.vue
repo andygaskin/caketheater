@@ -1,17 +1,12 @@
-<!-- layouts/default.vue -->
 <template>
   <div class="bg_container">
     <div class="test"></div>
+
     <AppHeader />
 
     <main class="main">
       <div class="page_wrapper">
-        <div class="lamplit-parchment">
-          <div class="lamplit__bg" aria-hidden="true"></div>
-          <div class="lamplit__content">
-            <slot />
-          </div>
-        </div>
+        <slot />
       </div>
     </main>
 

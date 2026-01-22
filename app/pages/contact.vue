@@ -1,5 +1,7 @@
 <template>
+  <h1>Contact!</h1>
 
-    <h1>Contact Us!</h1>
- 
+  <p class="body_text">
+    <a href="mailto:andy@caketheater.com">andy@caketheater.com</a>
+  </p>
 </template>

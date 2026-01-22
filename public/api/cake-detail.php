@@ -15,7 +15,7 @@ try {
         exit;
     }
 
-    // One query that returns 1 row per image (or a single row with NULL image fields if none)
+    //  returns 1 row per image (or a single row with NULL image fields if none)
     // Cover image is forced to be first via ORDER BY expression.
     $sql = "
         SELECT
@@ -61,6 +61,7 @@ try {
     // Base cake/baker details come from first row
     $first = $rows[0];
 
+    //normalize
     $cake = [
         'id' => (int)$first['cake_id'],
         'slug' => (string)$first['cake_slug'],
@@ -80,6 +81,7 @@ try {
         if ($r['image_id'] === null) {
             continue; // cake exists but has no active images
         }
+
 
         $cake['images'][] = [
             'id' => (int)$r['image_id'],
