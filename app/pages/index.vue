@@ -1,7 +1,7 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: "home-layout",
-});
+// definePageMeta({
+//   layout: "home-layout",
+// });
 import { fetchFeatured } from "@/services/featuredApi";
 
 const { data, pending, error } = await useAsyncData("featured", fetchFeatured);
@@ -11,47 +11,35 @@ useHead({
   meta: [
     {
       name: "description",
-      content: "Cake Theater is a fun way to share your cake designs.",
+      content: "Cake Theater is a fun way for bakers to share cake designs.",
     },
   ],
 });
 </script>
 
 <template>
-  <div
-    style="
-      text-align: center;
-      margin-bottom: var(--gap_xlarge);
-      margin-top: var(--gap_large);
-    "
-  >
-    <h1>Where cakes take center stage</h1>
-    <div class="flex_align">
-      <h2>Share your designs</h2>
-      <i class="pi pi-star pi-spin" />
-      <h2>Spark fresh ideas</h2>
+  <div class="page">
+    <!-- Loading -->
+    <p v-if="pending">Loading cakes...</p>
+
+    <!-- Error -->
+    <div v-else-if="error">
+      <p>Unable to load featured cakes.</p>
+      <pre style="white-space: pre-wrap">{{ error }}</pre>
     </div>
-  </div>
 
-  <!-- Loading -->
-  <p v-if="pending">Loading cakes...</p>
+    <!-- Success -->
 
-  <!-- Error -->
-  <div v-else-if="error">
-    <p>Unable to load featured cakes.</p>
-    <pre style="white-space: pre-wrap">{{ error }}</pre>
-  </div>
-
-  <!-- Success -->
-  <div v-else>
-    <!-- <h2>Featured Cakes</h2> -->
-    <div class="main_card_holder">
-      <div
-        v-for="cake in data"
-        :key="cake.slug"
-        style="margin-bottom: 1rem; padding: 1rem"
-      >
-        <NuxtLink :to="`/cakes/${cake.slug}`" class="block_holder">
+    <div v-else>
+      <!-- <h2>Featured Cakes</h2> -->
+      <div class="main_card_holder">
+        <NuxtLink
+          :to="`/cakes/${cake.slug}`"
+          class="block_holder"
+          v-for="cake in data"
+          :key="cake.slug"
+          style="margin-bottom: 1rem; padding: 1rem"
+        >
           <div class="the_image">
             <img
               :src="`/cake_images/${cake.cover_filename}.jpg`"
@@ -69,32 +57,6 @@ useHead({
   </div>
 </template>
 <style scoped>
-h1 {
-  /* font-family: Usual, var(--primary-font); */
-  font-family: Georgia, "Times New Roman", Times, serif;
-  color: #fff;
-  font-size: 2.8rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  /* margin-bottom: var(--gap_small); */
-}
-
-h2 {
-  /* font-family: var(--primary-font); */
-  font-family: Georgia, "Times New Roman", Times, serif;
-
-  font-size: 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  margin: 0;
-  padding: 0;
-}
-
-.flex_align {
-  color: #dbc7fe;
-  display: flex;
-  align-items: center;
-  gap: var(--gap_small);
-  justify-content: center;
-}
 .main_card_holder {
   display: grid;
   gap: 25px;
@@ -130,7 +92,8 @@ h2 {
   text-decoration: none;
   transition: all 0.5s;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     border: 1px solid rgb(161, 104, 161);
     color: #000;
     box-shadow:

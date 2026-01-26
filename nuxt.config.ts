@@ -24,6 +24,10 @@ export default defineNuxtConfig({
       //   },
       // ],
     },
+    pageTransition: {
+      name: "page",
+      mode: "out-in", // 'out-in' helps prevent layout jumps
+    },
   },
   css: ["primeicons/primeicons.css", "@/assets/css/main.css"],
   nitro: {

@@ -1,8 +1,9 @@
 <template>
   <div class="bg_container">
+    <div class="curtain"></div>
     <div class="test"></div>
 
-    <AppHeader />
+    <AppHeader intro="true" />
 
     <main class="main">
       <div class="page_wrapper">

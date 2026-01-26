@@ -15,7 +15,7 @@ const {
   { watch: [slug] },
 );
 
-// Optional: Nuxt-style 404
+// Optional 404 handling
 if (error.value) {
   throw createError({
     statusCode: 404,
@@ -46,37 +46,65 @@ useSeoMeta({
 </script>
 
 <template>
-  <div v-if="pending">Loading…</div>
+  <div class="page">
+    <div class="lamplit-parchment">
+      <div class="lamplit__bg" aria-hidden="true"></div>
+      <div class="lamplit__content">
+        <div v-if="pending">Loading…</div>
 
-  <div v-else-if="cake">
-    <h1>{{ cake.title }}</h1>
-    <p>
-      by <strong>{{ cake.baker.displayName }}</strong>
-      <span v-if="cake.baker.country"
-        >&nbsp;({{ countryName(cake?.baker.country, "en") }})</span
-      >
-    </p>
+        <div v-else-if="cake">
+          <h1>{{ cake.title }}</h1>
+          <p>
+            by <strong>{{ cake.baker.displayName }}</strong>
+            <span v-if="cake.baker.country"
+              >&nbsp;({{ countryName(cake?.baker.country, "en") }})</span
+            >
+          </p>
 
-    <section v-if="cake.images.length" class="cake_holder">
-      <div>
-        <div v-for="img in cake.images" :key="img.id">
-          <img
-            class="cake_image"
-            :src="`/cake_images/${img.filename}_medium.jpg`"
-            :alt="img.description || cake.title"
-            loading="lazy"
-          />
+          <section v-if="cake.images.length" class="cake_holder">
+            <div>
+              <div v-for="img in cake.images" :key="img.id">
+                <img
+                  class="cake_image"
+                  :src="`/cake_images/${img.filename}_medium.jpg`"
+                  :alt="img.description || cake.title"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div>
+              <div class="body_text" v-if="cake.description">
+                {{ cake.description }}
+              </div>
+            </div>
+          </section>
         </div>
       </div>
-      <div>
-        <div class="body_text" v-if="cake.description">
-          {{ cake.description }}
-        </div>
-      </div>
-    </section>
+    </div>
   </div>
 </template>
 <style scoped>
+.lamplit-parchment {
+  opacity: 1;
+
+  animation-duration: 1s;
+  animation-fill-mode: backwards; /* Ensures the start state (0% keyframe) is applied before the animation begins */
+  animation-name: fadeInUp;
+  animation-delay: 0.7s; /* Optional: adds a delay after page load */
+}
+
+/* 2. Define the animation sequence with @keyframes */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Final position */
+  }
+}
+
 .cake_image {
   /* max-width: 300px; */
   border: 1px solid var(--color_border);

@@ -1,17 +1,16 @@
-<!-- layouts/default.vue -->
+<script setup lang="ts">
+const route = useRoute();
+const atHomepage = computed(() => route.path === "/");
+</script>
 <template>
   <div class="bg_container">
+    <div class="curtain"></div>
     <div class="test"></div>
-    <AppHeader />
+    <AppHeader :showIntro="atHomepage" />
 
     <main class="main">
       <div class="page_wrapper">
-        <div class="lamplit-parchment">
-          <div class="lamplit__bg" aria-hidden="true"></div>
-          <div class="lamplit__content">
-            <slot />
-          </div>
-        </div>
+        <slot />
       </div>
     </main>
 
