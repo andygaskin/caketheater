@@ -12,9 +12,9 @@ defineProps<{
     <Transition name="intro">
       <div v-show="showIntro" class="text_holder">
         <h1>Where cakes take center stage</h1>
-        <div class="flex_align">
+        <div class="flex_align tagline">
           <h2>Share your designs</h2>
-          <i class="pi pi-star pi-spin" />
+          <i class="pi pi-star pi-spin mobile_hide" />
           <h2>Spark fresh ideas</h2>
         </div>
       </div></Transition
@@ -38,6 +38,13 @@ defineProps<{
       object-fit: cover;
       object-position: left;
     }
+  }
+}
+
+.tagline {
+  @media (width<650px) {
+    flex-direction: column;
+    margin-top: var(--gap_medium);
   }
 }
 .logo {

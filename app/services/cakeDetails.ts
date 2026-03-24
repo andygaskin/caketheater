@@ -19,6 +19,11 @@ export type CakeDetailApiResponse = {
       sort_order: number;
       is_cover: boolean;
     }[];
+    categories: {
+      group: string;
+      slug: string;
+      name: string;
+    }[];
   } | null;
   error?: string;
 };
@@ -40,6 +45,11 @@ export type CakeDetail = {
     description: string;
     sortOrder: number;
     isCover: boolean;
+  }[];
+  categories: {
+    group: string;
+    slug: string;
+    name: string;
   }[];
 };
 
@@ -63,6 +73,11 @@ function normalizeCake(
       description: img.description,
       sortOrder: img.sort_order,
       isCover: img.is_cover,
+    })),
+    categories: apiCake.categories.map((cat) => ({
+      group: cat.group,
+      slug: cat.slug,
+      name: cat.name,
     })),
   };
 }

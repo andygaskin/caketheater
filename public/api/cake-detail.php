@@ -74,6 +74,7 @@ try {
             'country' => (string)$first['baker_country'],
         ],
         'images' => [],
+        'categories' => [],
     ];
 
     // Collect images 
@@ -91,6 +92,34 @@ try {
             'is_cover' => ((int)$r['image_id'] === (int)$cake['cover_image_id']),
         ];
     }
+
+
+    // Collect categories (group + category) for this cake
+    $sqlCats = "
+  SELECT
+    g.slug AS group_slug,
+    c.slug AS category_slug,
+    c.name AS category_name
+  FROM cake_category cc
+  JOIN categories c
+    ON c.id = cc.category_id
+   AND c.active = 1
+  JOIN category_groups g
+    ON g.id = c.group_id
+   AND g.active = 1
+  WHERE cc.cake_id = ?
+  ORDER BY g.sort_order ASC, c.sort_order ASC, c.name ASC
+";
+
+    $catResult = $db->execute_query($sqlCats, [$cake['id']]);
+    $catRows = $catResult->fetch_all(MYSQLI_ASSOC);
+
+    $cake['categories'] = array_map(static fn(array $row) => [
+        'group' => (string)$row['group_slug'],   // 'occasion'
+        'slug'  => (string)$row['category_slug'], // 'birthday'
+        'name'  => (string)$row['category_name'] // 'Birthday'
+    ], $catRows);
+
 
     ct_json(['cake' => $cake]);
 } catch (mysqli_sql_exception $e) {

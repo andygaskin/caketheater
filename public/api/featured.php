@@ -9,7 +9,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/_db.php';
 require_once __DIR__ . '/_json.php';
 
-const FEATURED_LIMIT = 6;
+const FEATURED_LIMIT = 9;
 
 try {
   $db = ct_db();

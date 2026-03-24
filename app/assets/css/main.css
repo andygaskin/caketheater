@@ -29,6 +29,12 @@ body {
   background-color: #070611;
 }
 
+.mobile_hide {
+  @media (width<650px) {
+    display: none;
+  }
+}
+
 .flex_align {
   color: #dbc7fe;
   display: flex;
@@ -36,6 +42,7 @@ body {
   gap: var(--gap_small);
   justify-content: center;
 }
+
 .bg_container {
   /* min-height: 100vh;
   height: 100%; */

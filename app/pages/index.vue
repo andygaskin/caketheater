@@ -38,7 +38,6 @@ useHead({
           class="block_holder"
           v-for="cake in data"
           :key="cake.slug"
-          style="margin-bottom: 1rem; padding: 1rem"
         >
           <div class="the_image">
             <img
@@ -80,10 +79,10 @@ useHead({
   content-visibility: auto;
   cursor: pointer;
   align-items: center;
-  background-color: #fff;
+  background-color: #ffffff70;
   border: 1px solid transparent;
-  border-radius: 10px;
-
+  border-radius: 30px;
+  corner-shape: squircle;
   color: var(--primary-color);
   display: flex;
   flex-flow: column;

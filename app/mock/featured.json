@@ -1,13 +1,31 @@
 [
   {
+    "slug": "casino-night-engagement",
+    "title": "Casino Night Engagement",
+    "baker": "SugarBuzzLLC",
+    "cover_filename": "724c08ecd07183bda0c725e98ed68d9b"
+  },
+  {
+    "slug": "lovely-hearts",
+    "title": "Lovely Hearts",
+    "baker": "mycakeswithlove",
+    "cover_filename": "4f04cc7c9c2bb1ea1c03a116511a5f8d"
+  },
+  {
+    "slug": "love-flower-cupcake",
+    "title": "Love Flower Cupcake",
+    "baker": "regancakes",
+    "cover_filename": "47c6b0019953a83b34af3868000e7748"
+  },
+  {
     "slug": "fantasy-pumpkin",
     "title": "Fantasy Pumpkin",
     "baker": "MammaDucky",
     "cover_filename": "c5404a9dd7fc7f411fc7842fd37858d6"
   },
   {
-    "slug": "glass-cupcakes",
-    "title": "Glass Cupcakes",
+    "slug": "stabby-glass-cupcakes",
+    "title": "Stabby Glass Cupcakes",
     "baker": "kyten",
     "cover_filename": "5fbbdba359d8fb3b50f87a27f3673400"
   },
@@ -16,5 +34,23 @@
     "title": "Candy Corn Cake",
     "baker": "birdonacake",
     "cover_filename": "2e592ec4eafeedcf4acbf7159ce23f0a"
+  },
+  {
+    "slug": "green-stripe-wonky-cake",
+    "title": "Green stripe Wonky Cake",
+    "baker": "regancakes",
+    "cover_filename": "b6cfbc66c88a12f06ca836f7b643582b"
+  },
+  {
+    "slug": "green-eggs-and-ham",
+    "title": "Green Eggs and Ham",
+    "baker": "Sundee",
+    "cover_filename": "973175424f6a70a0be38e157ead373ea"
+  },
+  {
+    "slug": "st-patricks-day",
+    "title": "St. Patricks Day",
+    "baker": "YRivera",
+    "cover_filename": "48f1c49efc6fc0a35b717e0c5cd15ebb"
   }
 ]
