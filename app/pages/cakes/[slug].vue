@@ -181,7 +181,8 @@ useSeoMeta({
 .cake_image {
   /* max-width: 300px; */
   border: 1px solid var(--color_border);
-  border-radius: 8px;
+  border-radius: 28px;
+  corner-shape: squircle;
   box-shadow: var(--box_shadow);
   border: 1px solid var(--primary-color);
   margin-bottom: var(--gap_medium);
