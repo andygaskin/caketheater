@@ -52,9 +52,7 @@ useSeoMeta({
         <div v-if="cake">
           <p>
             <strong>{{ cake.baker.displayName }}</strong>
-            <span v-if="cake.baker.country"
-              >&nbsp;({{ countryName(cake?.baker.country, "en") }})</span
-            >
+            <span v-if="cake.baker.country">&nbsp;({{ countryName(cake?.baker.country, "en") }})</span>
           </p>
         </div>
       </div>
@@ -68,29 +66,20 @@ useSeoMeta({
             <h1>{{ cake.title }}</h1>
 
             <ul class="tags">
-              <li
-                v-for="category in cake.categories"
-                :key="`${category.group}:${category.slug}`"
-              >
+              <li v-for="category in cake.categories" :key="`${category.group}:${category.slug}`">
                 <a>
-                  <!-- <NuxtLink
-                  :to="`/categories/${category.group}/${category.slug}`"
-                > -->
-                  {{ category.name }}
-                  <!-- </NuxtLink> --></a
-                >
+                  <NuxtLink :to="`/categories/${category.group}/${category.slug}`">
+                    {{ category.name }}
+                  </NuxtLink>
+                </a>
               </li>
             </ul>
 
             <section v-if="cake.images.length" class="cake_holder">
               <div>
                 <div v-for="img in cake.images" :key="img.id">
-                  <img
-                    class="cake_image"
-                    :src="`/cake_images/${img.filename}_medium.jpg`"
-                    :alt="img.description || cake.title"
-                    loading="lazy"
-                  />
+                  <img class="cake_image" :src="`/cake_images/${img.filename}_medium.jpg`"
+                    :alt="img.description || cake.title" loading="lazy" />
                 </div>
               </div>
               <div>
@@ -116,6 +105,7 @@ useSeoMeta({
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
 .tags li a {
   width: auto;
   border: 1px solid rgb(134, 36, 163);
@@ -133,6 +123,7 @@ useSeoMeta({
 .detail_holder {
   display: grid;
   grid-template-columns: 1fr 3.5fr;
+
   @media (width<650px) {
     display: flex;
     flex-direction: column;
@@ -153,13 +144,16 @@ useSeoMeta({
     border-bottom-right-radius: 0;
   }
 }
+
 .lamplit-parchment {
   opacity: 1;
 
   animation-duration: 1s;
-  animation-fill-mode: backwards; /* Ensures the start state (0% keyframe) is applied before the animation begins */
+  animation-fill-mode: backwards;
+  /* Ensures the start state (0% keyframe) is applied before the animation begins */
   animation-name: fadeInUp;
-  animation-delay: 0.1s; /* Optional: adds a delay after page load */
+  animation-delay: 0.1s;
+  /* Optional: adds a delay after page load */
 
   @media (width<650px) {
     border-radius: 0;
@@ -172,9 +166,11 @@ useSeoMeta({
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
-    transform: translateY(0); /* Final position */
+    transform: translateY(0);
+    /* Final position */
   }
 }
 

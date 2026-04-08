@@ -3,6 +3,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  modules: ["@nuxt/eslint"],
   // modules: ["@primevue/nuxt-module"],
   // primevue: {
   //   options: {
@@ -12,6 +13,7 @@ export default defineNuxtConfig({
   //     },
   //   },
   // },
+
   app: {
     head: {
       htmlAttrs: {
@@ -30,11 +32,6 @@ export default defineNuxtConfig({
     },
   },
   css: ["primeicons/primeicons.css", "@/assets/css/main.css"],
-  nitro: {
-    prerender: {
-      crawlLinks: true, // *****set to FALSE when deploying non-SSG!! This ensures we don't accidentally prerender content pages******
-    },
-  },
   // NOTE: This requires Nitro/Node hosting. Do not deploy as pure static (ie npm run generate) if we want /cakes SSR.
   routeRules: {
     // SSG ("Static Site Generation" / prerender)

@@ -33,21 +33,12 @@ useHead({
     <div v-else>
       <!-- <h2>Featured Cakes</h2> -->
       <div class="main_card_holder">
-        <NuxtLink
-          :to="`/cakes/${cake.slug}`"
-          class="block_holder"
-          v-for="cake in data"
-          :key="cake.slug"
-        >
+        <NuxtLink :to="`/cakes/${cake.slug}`" class="block_holder" v-for="cake in data" :key="cake.slug">
           <div class="the_image">
-            <img
-              :src="`/cake_images/${cake.cover_filename}.jpg`"
-              :alt="cake.title"
-            />
+            <img :src="`/cake_images/${cake.cover_filename}.jpg`" :alt="cake.title" />
           </div>
           <div class="project_title">
-            <strong>{{ cake.title }}</strong
-            ><br />
+            <strong>{{ cake.title }}</strong><br />
             <span>by {{ cake.baker }}</span>
           </div>
         </NuxtLink>
@@ -99,6 +90,7 @@ useHead({
       0.6px 1.1px 3.9px rgb(0 0 0 / 5%),
       5px 9px 31px rgb(0 0 0 / 11%);
     text-decoration: underline;
+
     .project_title {
       text-decoration: underline;
     }
@@ -111,6 +103,7 @@ useHead({
   background-repeat: no-repeat;
   background-position: top; */
   height: 100%;
+
   & img {
     width: 100%;
     height: 100%;
@@ -118,6 +111,7 @@ useHead({
     object-position: 50% 15%;
   }
 }
+
 .project_title {
   font-family: var(--primary-font);
   font-size: 1.1rem;

@@ -1,11 +1,13 @@
 <!-- components/AppFooter.vue -->
 <template>
   <footer class="site-footer">
-    <p>
+    <div>About CT <i class="pi pi-circle-fill"></i>
+      Contact
+    </div>
+    <div>
       &copy;{{ new Date().getFullYear() }} Cake Theater
-      <!-- <i class="pi pi-circle-fill"></i>
-      <NuxtLink to="/contact">Contact</NuxtLink> -->
-    </p>
+
+    </div>
   </footer>
 </template>
 <style scoped>
@@ -13,7 +15,7 @@
   text-align: center;
   padding: var(--gap_large);
   font-size: 0.875rem;
-  color: var(--color_text_muted);
+  color: #fff;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
