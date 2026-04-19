@@ -75,18 +75,19 @@ const categoryMenu = [
         <NuxtLink to="/" class="logo"><img src="@/assets/images/logo.webp" alt="Cake Theater logo" /></NuxtLink>
 
         <div class="menu_group">
-          <button class="menu_item" popovertarget="menu_dropdown">Baker Directory</button>
-          <button class="menu_item" popovertarget="menu_dropdown">Market</button>
+          <button class="menu_item">Baker Directory</button>
+          <button class="menu_item">Market</button>
         </div>
       </div>
       <div id="menu_dropdown" popover style="position-anchor: --menu_item_cakes" class="menu_dropdown">
 
-        <div v-for="group in categoryMenu" :key="group.slug">
-          <h3>{{ group.name }}</h3>
+        <div v-for="category in categoryMenu" :key="category.slug">
+          <h3>{{ category.name }}</h3>
 
           <ul>
-            <li v-for="item in group.children" :key="item.slug">
-              <NuxtLink :to="`/categories/${group.slug}/${item.slug}`">
+            <li v-for="item in category.children" :key="item.slug">
+              <!-- <NuxtLink :to="`/categories/${category.slug}/${item.slug}`">-->
+              <NuxtLink :to="`/`">
                 {{ item.name }}
               </NuxtLink>
             </li>
@@ -96,17 +97,17 @@ const categoryMenu = [
       <div id="menu_dropdown_tiers" style="position-anchor: --menu_item_tiers" popover class="menu_dropdown">
         <ul>
           <li>
-            <NuxtLink to="/tiers/leaderboard">
+            <NuxtLink to="/">
               Leaderboard
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/tiers/popular">
+            <NuxtLink to="/">
               Popular
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/tiers/latest">
+            <NuxtLink to="/">
               Latest additions
             </NuxtLink>
           </li>
@@ -185,8 +186,8 @@ const categoryMenu = [
 }
 
 ::backdrop {
-  /* background-color: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(0.5px); */
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(0.5px);
 }
 
 .menu_dropdown {

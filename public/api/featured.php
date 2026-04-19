@@ -32,7 +32,7 @@ try {
   $result = $db->execute_query($sql, [1, 1]);
   $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-  // Normalize keys/strings (somewhat optional)
+  // Normalize keys/strings 
   $featured = array_map(static fn(array $r) => [
     'slug' => (string)$r['slug'],
     'title' => (string)$r['title'],

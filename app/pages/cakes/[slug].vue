@@ -68,7 +68,8 @@ useSeoMeta({
             <ul class="tags">
               <li v-for="category in cake.categories" :key="`${category.group}:${category.slug}`">
                 <a>
-                  <NuxtLink :to="`/categories/${category.group}/${category.slug}`">
+                  <!-- <NuxtLink :to="`/categories/${category.group}/${category.slug}`"> -->
+                  <NuxtLink :to="`/`">
                     {{ category.name }}
                   </NuxtLink>
                 </a>
