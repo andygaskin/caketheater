@@ -3,10 +3,16 @@ defineProps<{
   showIntro?: boolean | null;
 }>();
 
+const toggleBulb = (n: number) => {
+  const bulb = document.querySelector(`.bulb:nth-child(${n}) .bulb-glow`) as HTMLElement;
+  if (bulb) {
+    bulb.style.display = bulb.style.display === "none" ? "block" : "none";
+    console.log(`Toggled bulb ${n}, new display: ${bulb.style.display}`);
+  }
+};
 
 
-
-
+//move to constants?
 const categoryMenu = [
   {
     name: "Occasion",
@@ -128,15 +134,166 @@ const categoryMenu = [
     </Transition>
 
 
-    <!--Start plank-->
+    <!--Plank-->
     <div class="plank">
-      <img src="@/assets/images/plank.webp" alt="plank" />
-    </div>
+      <div class="bulb_holder">
 
+        <div v-for="n in 5" :key="n" class="bulb" @mousedown="toggleBulb(n)">
+          <div class="wire" /><img src="@/assets/images/bulb.png" alt="Bulb">
+          <div class="bulb-glow" />
+        </div>
+
+
+
+
+
+      </div>
+      <img src="@/assets/images/plank.webp" alt="plank">
+    </div>
+    <!--END plank-->
 
   </header>
 </template>
 <style scoped>
+.bulb_holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 0 140px;
+  width: 100%;
+  position: absolute;
+  top: 5px;
+
+
+
+}
+
+.bulb {
+  position: relative;
+  width: 60px;
+  height: 80px;
+  cursor: pointer;
+  transform-origin: top center;
+  animation: sway 4.5s ease-in-out infinite;
+  animation-delay: calc(sibling-index()*300ms);
+
+}
+
+/* .bulb:nth-child(odd) {
+  transform: translateY(4px);
+}
+
+.bulb:nth-child(even) {
+  transform: translateY(-2px);
+} */
+.wire {
+  position: absolute;
+  top: -px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 3px;
+  height: 10px;
+
+  background: rgba(80, 60, 40, 0.7);
+}
+
+.bulb-glow {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  width: 120px;
+  height: 160px;
+  border-radius: 50%;
+
+
+  background:
+    radial-gradient(circle,
+      rgba(255, 214, 80, 0.6) 0%,
+      rgba(255, 160, 60, 0.35) 25%,
+      rgba(255, 140, 40, 0.15) 45%,
+      rgba(255, 120, 20, 0.05) 65%,
+      transparent 80%);
+
+  filter: blur(8px);
+  z-index: 1;
+  animation: flicker 2.5s infinite ease-in-out;
+
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -40%) scale(1);
+  }
+
+  5% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1.02);
+  }
+
+  10% {
+    opacity: 0.85;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  35% {
+    opacity: 0.92;
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1.03);
+  }
+
+  65% {
+    opacity: 0.88;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.95;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(1.2deg);
+  }
+
+  100% {
+    transform: rotate(-3deg);
+  }
+}
+
+.bulb-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+
+  background: radial-gradient(circle,
+      rgba(255, 220, 140, 0.4),
+      transparent 60%);
+
+  mix-blend-mode: color-dodge;
+  opacity: 0.4;
+}
+
+
 .logo {
   margin-left: var(--gap_large);
   margin-right: var(--gap_large);
@@ -241,6 +398,8 @@ const categoryMenu = [
 }
 
 .plank {
+  position: relative;
+
   @media (width < 600px) {
     height: 65px;
     width: 100%;
