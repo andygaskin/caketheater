@@ -3,12 +3,29 @@ defineProps<{
   showIntro?: boolean | null;
 }>();
 
+const bulb_clicks = ref<number[]>([])
+
+
 const toggleBulb = (n: number) => {
-  const bulb = document.querySelector(`.bulb:nth-child(${n}) .bulb-glow`) as HTMLElement;
-  if (bulb) {
-    bulb.style.display = bulb.style.display === "none" ? "block" : "none";
-    console.log(`Toggled bulb ${n}, new display: ${bulb.style.display}`);
+  const selected_bulb = document.querySelector(`.bulb:nth-child(${n}) .bulb_glow`) as HTMLElement;
+
+  if (selected_bulb) {
+    // bulb.style.display = bulb.style.display === "none" ? "block" : "none";
+    // console.log(`Toggled bulb ${n}, new display: ${bulb.style.display}`);
+
+    if (selected_bulb.classList.contains('flicker')) {
+      selected_bulb.classList.replace('flicker', 'power_down');
+    } else {
+      selected_bulb.classList.replace('power_down', 'flicker');
+    }
   }
+
+  bulb_clicks.value.push(n);
+  if (bulb_clicks.value.length > 4) { bulb_clicks.value.shift(); }
+  // console.log(bulb_clicks.value);
+
+
+
 };
 
 
@@ -140,7 +157,7 @@ const categoryMenu = [
 
         <div v-for="n in 5" :key="n" class="bulb" @mousedown="toggleBulb(n)">
           <div class="wire" /><img src="@/assets/images/bulb.png" alt="Bulb">
-          <div class="bulb-glow" />
+          <div class="bulb_glow flicker" />
         </div>
 
 
@@ -159,13 +176,10 @@ const categoryMenu = [
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
   padding: 0 140px;
   width: 100%;
   position: absolute;
   top: 5px;
-
-
 
 }
 
@@ -175,6 +189,7 @@ const categoryMenu = [
   height: 80px;
   cursor: pointer;
   transform-origin: top center;
+  transform: rotate(-3deg);
   animation: sway 4.5s ease-in-out infinite;
   animation-delay: calc(sibling-index()*300ms);
 
@@ -199,18 +214,16 @@ const categoryMenu = [
   background: rgba(80, 60, 40, 0.7);
 }
 
-.bulb-glow {
+.bulb_glow {
   position: absolute;
   top: 60%;
   left: 50%;
   transform: translate(-50%, -40%);
   width: 120px;
-  height: 160px;
+  height: 165px;
   border-radius: 50%;
 
-
-  background:
-    radial-gradient(circle,
+  background: radial-gradient(circle,
       rgba(255, 214, 80, 0.6) 0%,
       rgba(255, 160, 60, 0.35) 25%,
       rgba(255, 140, 40, 0.15) 45%,
@@ -219,7 +232,14 @@ const categoryMenu = [
 
   filter: blur(8px);
   z-index: 1;
-  animation: flicker 2.5s infinite ease-in-out;
+
+  &.flicker {
+    animation: flicker 2.5s infinite ease-in-out;
+  }
+
+  &.power_down {
+    animation: power_down 0.2s forwards;
+  }
 
 }
 
@@ -265,9 +285,35 @@ const categoryMenu = [
   }
 }
 
+@keyframes power_down {
+  0% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0.6;
+
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+
+  }
+
+  100% {
+    opacity: 0;
+
+  }
+}
+
 @keyframes sway {
   0% {
     transform: rotate(-3deg);
+
   }
 
   50% {
