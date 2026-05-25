@@ -19,12 +19,21 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "en",
       },
-      // link: [
-      //   {
-      //     rel: "stylesheet",
-      //     href: "https://use.typekit.net/xok1wfz.css",
-      //   },
-      // ],
+      link: [
+        {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap",
+        },
+      ],
     },
     pageTransition: {
       name: "page",

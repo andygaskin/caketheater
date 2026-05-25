@@ -10,8 +10,6 @@ const toggleBulb = (n: number) => {
   const selected_bulb = document.querySelector(`.bulb:nth-child(${n}) .bulb_glow`) as HTMLElement;
 
   if (selected_bulb) {
-    // bulb.style.display = bulb.style.display === "none" ? "block" : "none";
-    // console.log(`Toggled bulb ${n}, new display: ${bulb.style.display}`);
 
     if (selected_bulb.classList.contains('flicker')) {
       selected_bulb.classList.replace('flicker', 'power_down');
@@ -20,10 +18,10 @@ const toggleBulb = (n: number) => {
     }
   }
 
+
+  //this is to track click order to be used as a "secret code" or easter egg later. 
   bulb_clicks.value.push(n);
   if (bulb_clicks.value.length > 4) { bulb_clicks.value.shift(); }
-  // console.log(bulb_clicks.value);
-
 
 
 };
@@ -243,6 +241,7 @@ const categoryMenu = [
 
 }
 
+
 @keyframes flicker {
   0% {
     opacity: 0.9;
@@ -312,16 +311,16 @@ const categoryMenu = [
 
 @keyframes sway {
   0% {
-    transform: rotate(-3deg);
+    transform: rotate(-4deg);
 
   }
 
   50% {
-    transform: rotate(1.2deg);
+    transform: rotate(2deg);
   }
 
   100% {
-    transform: rotate(-3deg);
+    transform: rotate(-4deg);
   }
 }
 
@@ -358,6 +357,7 @@ const categoryMenu = [
   align-items: flex-end;
   column-gap: 50px;
 
+
   /* outline: 1px solid orange; */
 }
 
@@ -388,18 +388,18 @@ const categoryMenu = [
 
 }
 
-::backdrop {
+/* ::backdrop {
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(0.5px);
-}
+} */
 
 .menu_dropdown {
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin-top: var(--gap_small);
-  padding: var(--gap_medium);
-  background: #fff;
+  padding: var(--gap_large);
+  background: #f2ecf3;
   border-radius: 30px;
-  box-shadow: .6px 1.1px 3.9px #00000016, 5px 9px 31px #0000002f;
+  box-shadow: .6px 1.1px 3.9px #0000002c, 5px 9px 31px #00000036;
   position: absolute;
   border: none;
 
@@ -411,13 +411,13 @@ const categoryMenu = [
   &:popover-open {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: var(--gap_large);
-    transform: translateY(0);
+    gap: var(--gap_medium);
+    /* transform: translateY(0); */
 
-    @starting-style {
-      /* opacity: 0; */
-      transform: translateY(-5px);
-    }
+    /* @starting-style {
+      opacity: 0;
+      transform: translateY(-15px);
+    } */
 
 
     ul {
@@ -427,11 +427,25 @@ const categoryMenu = [
       margin-bottom: var(--gap_medium);
       color: #231f20;
       width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: inset 0.6px 1.1px 1.9px #0000001a, inset 2px 2px 31px #0000001f;
+    }
+
+    li {
+      opacity: 0.5;
+      animation: fade_in 0.2s ease-out forwards;
+      animation-delay: calc(sibling-index()*50ms);
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      font-family: "Funnel Sans", sans-serif;
+      font-weight: 100;
     }
 
     a {
       text-decoration: none;
-      color: purple;
+      color: rgb(146, 13, 146);
 
       &:hover {
         text-decoration: underline;
@@ -443,8 +457,23 @@ const categoryMenu = [
 
 }
 
+
+@keyframes fade_in {
+
+
+  0% {
+    transform: translateY(-2px);
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .plank {
   position: relative;
+  z-index: 1;
 
   @media (width < 600px) {
     height: 65px;

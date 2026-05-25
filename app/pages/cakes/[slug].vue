@@ -50,6 +50,7 @@ useSeoMeta({
     <div class="detail_holder">
       <div class="side">
         <div v-if="cake">
+          <h1>{{ cake.title }}</h1>
           <p>
             <strong>{{ cake.baker.displayName }}</strong>
             <span v-if="cake.baker.country">&nbsp;({{ countryName(cake?.baker.country, "en") }})</span>
@@ -63,16 +64,16 @@ useSeoMeta({
           <div v-if="pending">Loading…</div>
 
           <div v-else-if="cake">
-            <h1>{{ cake.title }}</h1>
+
 
             <ul class="tags">
               <li v-for="category in cake.categories" :key="`${category.group}:${category.slug}`">
-                <a>
-                  <!-- <NuxtLink :to="`/categories/${category.group}/${category.slug}`"> -->
-                  <NuxtLink :to="`/`">
-                    {{ category.name }}
-                  </NuxtLink>
-                </a>
+
+                <!-- <NuxtLink :to="`/categories/${category.group}/${category.slug}`"> -->
+                <NuxtLink :to="`/`">
+                  {{ category.name }}
+                </NuxtLink>
+
               </li>
             </ul>
 
@@ -84,7 +85,7 @@ useSeoMeta({
                 </div>
               </div>
               <div>
-                <div class="body_text" v-if="cake.description">
+                <div v-if="cake.description" class="body_text">
                   {{ cake.description }}
                   <hr />
                 </div>
@@ -122,18 +123,21 @@ useSeoMeta({
 }
 
 .detail_holder {
-  display: grid;
-  grid-template-columns: 1fr 3.5fr;
+  /* display: grid; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  @media (width<650px) {
-    display: flex;
-    flex-direction: column;
-  }
+  animation: moveUp 1.3s ease-out forwards;
+
+
 }
 
 .side {
+  border-radius: 10px 10px 0 0;
+  width: 99.5%;
   background: darkblue url("@/assets/images/blue_fabric.webp");
-  border-radius: 10px;
+  /* border-radius: 10px; */
   padding: var(--gap_medium);
   color: #fff;
   box-shadow:
@@ -161,7 +165,22 @@ useSeoMeta({
   }
 }
 
-/* 2. Define the animation sequence with @keyframes */
+
+@keyframes moveUp {
+  /* 0% {
+   
+    transform: translateY(20px);
+  } */
+
+  100% {
+
+    transform: translateY(-50px);
+    /* Final position */
+  }
+}
+
+
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -202,8 +221,9 @@ useSeoMeta({
 }
 
 h1 {
-  color: var(--primary-color);
-  font-family: var(--primary-font);
+  color: #fff;
+  font-size: 3rem;
+  font-family: "Funnel Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 p {
