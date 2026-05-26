@@ -122,7 +122,8 @@ body {
     0.6px 1.1px 3.9px rgb(0 0 0 / 4%), 5px 9px 31px rgb(0 0 0 / 10%);
 
   --primary-font:
-    Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+    "Funnel Sans", Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana,
+    "sans-serif";
 }
 
 .body_text {

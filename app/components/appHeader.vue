@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { categoryMenu } from "@/constants/categories";
+
 defineProps<{
   showIntro?: boolean | null;
 }>();
@@ -27,56 +29,13 @@ const toggleBulb = (n: number) => {
 };
 
 
-//move to constants?
-const categoryMenu = [
-  {
-    name: "Occasion",
-    slug: "occasion",
-    children: [
-      { name: "Birthday", slug: "birthday" },
-      { name: "Baby Shower", slug: "baby-shower" },
-      { name: "Graduation", slug: "graduation" },
-      { name: "Wedding", slug: "wedding" },
-      { name: "Baptism", slug: "baptism" },
-      { name: "Communion", slug: "communion" },
-      { name: "Anniversary", slug: "anniversary" },
-    ],
-  },
-  {
-    name: "Theme",
-    slug: "theme",
-    children: [
-      { name: "Characters / Culture", slug: "characters-pop-culture" },
-      { name: "Animals", slug: "animals" },
-      { name: "Princess", slug: "princess" },
-      { name: "Sports", slug: "sports" },
-      { name: "Fantasy / Sci-Fi", slug: "fantasy-sci-fi" },
-    ],
-  },
-  {
-    name: "Technique",
-    slug: "technique",
-    children: [
-      { name: "Cupcakes", slug: "cupcakes" },
-      { name: "Bundt Cakes", slug: "bundt-cakes" },
-      { name: "Cake Pops", slug: "cake-pops" },
-      { name: "Sculpted Cakes", slug: "sculpted-cakes" },
-      { name: "Fondant", slug: "fondant" },
-    ],
-  },
-  {
-    name: "Holiday",
-    slug: "holiday",
-    children: [
-      { name: "Halloween", slug: "halloween" },
-      { name: "Christmas", slug: "christmas" },
-      { name: "Valentine's Day", slug: "valentines" },
-      { name: "Easter", slug: "easter" },
-    ],
-  },
-];
 
 
+const closePopover = (whichPopover: string) => {
+  const popover = document.getElementById(whichPopover) as HTMLElement | null;
+  popover?.hidePopover();
+
+}
 </script>
 
 <template>
@@ -93,7 +52,7 @@ const categoryMenu = [
               class="pi pi-chevron-down" /></button>
         </div>
 
-        <NuxtLink to="/" class="logo"><img src="@/assets/images/logo.webp" alt="Cake Theater logo" /></NuxtLink>
+        <NuxtLink to="/" class="logo"><img src="@/assets/images/logo.webp" alt="Cake Theater logo"></NuxtLink>
 
         <div class="menu_group">
           <button class="menu_item">Baker Directory</button>
@@ -107,8 +66,8 @@ const categoryMenu = [
 
           <ul>
             <li v-for="item in category.children" :key="item.slug">
-              <!-- <NuxtLink :to="`/categories/${category.slug}/${item.slug}`">-->
-              <NuxtLink :to="`/`">
+              <NuxtLink :to="`/categories/${item.slug}`" @click="closePopover('menu_dropdown')">
+                <!-- <NuxtLink :to="`/`"> -->
                 {{ item.name }}
               </NuxtLink>
             </li>
@@ -187,8 +146,8 @@ const categoryMenu = [
   height: 80px;
   cursor: pointer;
   transform-origin: top center;
-  transform: rotate(-3deg);
-  animation: sway 4.5s ease-in-out infinite;
+  transform: rotate(-4deg);
+  animation: sway 3.5s ease-in-out infinite;
   animation-delay: calc(sibling-index()*300ms);
 
 }
@@ -437,18 +396,31 @@ const categoryMenu = [
       opacity: 0.5;
       animation: fade_in 0.2s ease-out forwards;
       animation-delay: calc(sibling-index()*50ms);
-      margin-bottom: 8px;
+
       font-size: 1.1rem;
       font-family: "Funnel Sans", sans-serif;
       font-weight: 100;
     }
 
     a {
+      /* margin-bottom: 8px; */
+      display: block;
+      width: 100%;
       text-decoration: none;
       color: rgb(146, 13, 146);
+      border-radius: 5px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      align-content: center;
+
 
       &:hover {
-        text-decoration: underline;
+        /* text-decoration: underline; */
+        background: rgba(255, 0, 255, 0.1);
+        color: rgb(185, 88, 185);
+
+
       }
     }
 

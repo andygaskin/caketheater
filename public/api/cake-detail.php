@@ -121,6 +121,52 @@ try {
     ], $catRows);
 
 
+
+    //get this cake's comments
+
+    $sqlComments = "
+  SELECT
+    cm.ID             AS comment_id,
+    cm.comment_text   AS comment_text,
+    cm.username       AS comment_username,
+    cm.created_at     AS comment_created_at,
+    cm.account_id     AS account_id,
+
+    a.display_name    AS account_display_name,
+    a.slug            AS account_slug
+  FROM comments cm
+  LEFT JOIN accounts a
+    ON a.ID = cm.account_id
+   AND a.active = 1
+  WHERE cm.cake_id = ?
+    AND cm.active = ?
+    AND cm.section_id = ?
+  ORDER BY cm.created_at DESC
+";
+
+    $commentResult = $db->execute_query($sqlComments, [
+        $cake['id'],
+        1,
+        'cake',
+    ]);
+
+    $commentRows = $commentResult->fetch_all(MYSQLI_ASSOC);
+
+    $cake['comments'] = array_map(static fn(array $row) => [
+        'id' => (int)$row['comment_id'],
+        'body' => (string)$row['comment_text'],
+        'created_at' => (string)$row['comment_created_at'],
+        'author' => [
+            'display_name' => $row['account_display_name'] !== null
+                ? (string)$row['account_display_name']
+                : ((string)$row['comment_username'] ?: 'Anonymous'),
+            'slug' => $row['account_slug'] !== null ? (string)$row['account_slug'] : null,
+        ],
+    ], $commentRows);
+
+
+
+
     ct_json(['cake' => $cake]);
 } catch (mysqli_sql_exception $e) {
     ct_json(['cake' => null, 'error' => 'Unable to load cake.'], 500);

@@ -24,6 +24,15 @@ export type CakeDetailApiResponse = {
       slug: string;
       name: string;
     }[];
+    comments: {
+      id: number;
+      body: string;
+      created_at: string;
+      author: {
+        display_name: string;
+        slug: string | null;
+      };
+    }[];
   } | null;
   error?: string;
 };
@@ -50,6 +59,15 @@ export type CakeDetail = {
     group: string;
     slug: string;
     name: string;
+  }[];
+  comments: {
+    id: number;
+    body: string;
+    createdAt: string;
+    author: {
+      displayName: string;
+      slug: string | null;
+    };
   }[];
 };
 
@@ -78,6 +96,15 @@ function normalizeCake(
       group: cat.group,
       slug: cat.slug,
       name: cat.name,
+    })),
+    comments: apiCake.comments.map((comment) => ({
+      id: comment.id,
+      body: comment.body,
+      createdAt: comment.created_at,
+      author: {
+        displayName: comment.author.display_name,
+        slug: comment.author.slug,
+      },
     })),
   };
 }

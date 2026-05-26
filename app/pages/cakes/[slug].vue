@@ -19,7 +19,7 @@ const {
 if (error.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: "Cake not found. Sad. (please try again later)",
+    statusMessage: "Cake not found. Sadge. (please try again later)",
   });
 }
 
@@ -69,8 +69,8 @@ useSeoMeta({
             <ul class="tags">
               <li v-for="category in cake.categories" :key="`${category.group}:${category.slug}`">
 
-                <!-- <NuxtLink :to="`/categories/${category.group}/${category.slug}`"> -->
-                <NuxtLink :to="`/`">
+                <NuxtLink :to="`/categories/${category.slug}`">
+
                   {{ category.name }}
                 </NuxtLink>
 
@@ -89,6 +89,39 @@ useSeoMeta({
                   {{ cake.description }}
                   <hr />
                 </div>
+
+                <!-- comments-->
+
+                <section v-if="cake?.comments.length" class="comments">
+                  <h2>Comments</h2>
+
+                  <article v-for="comment in cake.comments" :key="comment.id" class="comment">
+                    <p class="comment_body" style="font-style: italic;">
+                      {{ comment.body }}
+                    </p>
+
+                    <p class="comment_meta" style="font-style: italic; ">
+                      <!-- <NuxtLink v-if="comment.author.slug" :to="`/bakers/${comment.author.slug}`"> -->
+                      --{{ comment.author.displayName }}
+                      <!-- </NuxtLink> -->
+
+                      <!-- <span v-else>
+                          {{ comment.author.displayName }}
+                        </span> -->
+
+                      <!-- <span> · {{ comment.createdAt }}</span> -->
+                    </p>
+                  </article>
+                </section>
+
+                <section v-else class="comments">
+                  <h2>Comments</h2>
+                  <p>No comments yet.</p>
+                </section>
+
+
+
+
               </div>
             </section>
           </div>
