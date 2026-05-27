@@ -91,6 +91,20 @@ body {
   min-height: 1200px;
 }
 
+/*Primevue overrides*/
+.p-selectbutton {
+  font-family: "Funnel Sans";
+
+  .p-togglebutton-checked {
+    background: rgba(128, 0, 128, 0.479);
+  }
+  button {
+    background: rgba(128, 0, 128, 0.452);
+    color: white;
+    border: none;
+  }
+}
+
 @keyframes parallax {
   to {
     transform: translateY(calc(var(--parallax-speed) * 200px));

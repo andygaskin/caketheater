@@ -1,18 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// import Aura from "@primeuix/themes/aura";
+import Aura from "@primeuix/themes/aura";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@nuxt/eslint"],
-  // modules: ["@primevue/nuxt-module"],
-  // primevue: {
-  //   options: {
-  //     // ripple: true,
-  //     theme: {
-  //       preset: Aura,
-  //     },
-  //   },
-  // },
+  modules: ["@nuxt/eslint", "@primevue/nuxt-module"],
+  primevue: {
+    options: {
+      // ripple: true,
+      theme: {
+        preset: Aura,
+      },
+    },
+  },
 
   app: {
     head: {
@@ -51,6 +50,7 @@ export default defineNuxtConfig({
 
     //SWR caching  ("Stale-While-Revalidate", show  cached version for x time until revalidating and serving fresh version)
     // "/cakes/**": { swr: 60 * 5 }, //5 minutes
+    // "/categories/**": { swr: 60 * 60 }, //1 hour
 
     // SSR ("Server Side Rendering". For frequently updated content)
     // "/cakes/**": { prerender: false },
@@ -58,5 +58,19 @@ export default defineNuxtConfig({
     // CSR ("Client Side Rendering")
     // "/admin/**": { ssr: false },
     // "/baker/**": { ssr: false },
+
+    // Consider SSG for default category pages (default sort, etc):
+
+    /* 
+ prerender: {
+    routes: [
+      "/categories/birthday",
+      "/categories/wedding",
+      "/categories/halloween",
+    ],
+  },
+
+
+    */
   },
 });

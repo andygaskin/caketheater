@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { findCategoryBySlug } from "@/constants/categories";
+import SelectButton from 'primevue/selectbutton';
+
+const sortOptions = ['Popular', 'Latest'];
+
+const sort = ref("Popular");
 
 const route = useRoute();
 const slug = computed(() => route.params.slug as string);
@@ -23,8 +28,23 @@ useSeoMeta({
 </script>
 
 <template>
-    <div>
+    <div class="page">
+        <div class="sort_holder">Sort by:
+            <SelectButton v-model="sort" :options="sortOptions" />
+        </div>
         <h1 style="color:white"> {{ categoryMatch?.category.name }} Cakes</h1>
-        <p class="body_text" style="color:white">Coming soon! 🎂</p>
+        <p class="body_text" style="color:white">{{ sort }} cakes coming soon! 🎂</p>
     </div>
 </template>
+<style scoped>
+.sort_holder {
+
+
+    font-family: var(--primary-font);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    float: right;
+    gap: var(--gap_small)
+}
+</style>
