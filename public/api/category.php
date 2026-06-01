@@ -39,7 +39,7 @@ try {
         ORDER BY c.cake_score DESC
         LIMIT " . CATEGORY_LIMIT . "
     ";
-    echo $slug;
+
 
     $active = 1;
 

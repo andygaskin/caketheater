@@ -47,7 +47,7 @@ useSeoMeta({
 
         <!-- Error -->
         <div v-else-if="error">
-            <p>Unable to load featured cakes.</p>
+            <p>Unable to load cakes.</p>
             <pre style="white-space: pre-wrap">{{ error }}</pre>
         </div>
 
@@ -67,6 +67,7 @@ useSeoMeta({
                 </NuxtLink>
             </div>
         </div>
+
 
 
 
