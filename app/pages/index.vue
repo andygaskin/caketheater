@@ -2,7 +2,7 @@
 // definePageMeta({
 //   layout: "home-layout",
 // });
-import { fetchFeatured } from "@/services/featuredApi";
+import { fetchFeatured } from "~/services/featured";
 
 const { data, pending, error } = await useAsyncData("featured", fetchFeatured);
 
@@ -77,7 +77,7 @@ useHead({
   color: var(--primary-color);
   display: flex;
   flex-flow: column;
-  height: 200px;
+  height: 240px;
   overflow: hidden;
   text-decoration: none;
   transition: all 0.5s;

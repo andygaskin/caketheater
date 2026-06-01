@@ -52,7 +52,8 @@ const closePopover = (whichPopover: string) => {
               class="pi pi-chevron-down" /></button>
         </div>
 
-        <NuxtLink to="/" class="logo"><img src="@/assets/images/logo.webp" alt="Cake Theater logo"></NuxtLink>
+        <NuxtLink to="/" class="logo"><img src="@/assets/images/logo.webp" alt="Cake Theater logo" width="303"
+            height="112"></NuxtLink>
 
         <div class="menu_group">
           <button class="menu_item">Baker Directory</button>
@@ -101,7 +102,7 @@ const closePopover = (whichPopover: string) => {
         <h1>Where cakes take center stage</h1>
         <div class="flex_align tagline">
           <h2>Share your designs</h2>
-          <i class="pi pi-star pi-spin mobile_hide" />
+          <i class="pi pi-star pi-spin mobile_hide" style=" color: #dbc7fe;" />
           <h2>Spark fresh ideas</h2>
         </div>
       </div>
@@ -301,6 +302,8 @@ const closePopover = (whichPopover: string) => {
 .logo {
   margin-left: var(--gap_large);
   margin-right: var(--gap_large);
+  filter: drop-shadow(5px 5px 8px rgba(0, 0, 0, 0.3));
+
 
 }
 
@@ -315,9 +318,11 @@ const closePopover = (whichPopover: string) => {
   display: flex;
   align-items: flex-end;
   column-gap: 50px;
+  z-index: 100;
 
 
-  /* outline: 1px solid orange; */
+
+
 }
 
 .menu_item {
@@ -332,6 +337,9 @@ const closePopover = (whichPopover: string) => {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.4rem;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.418);
+  display: flex;
+  align-items: center;
+  gap: 9px;
 
   &:hover {
     /* text-decoration: underline; */
@@ -358,7 +366,7 @@ const closePopover = (whichPopover: string) => {
   padding: var(--gap_large);
   background: #f2ecf3;
   border-radius: 30px;
-  box-shadow: .6px 1.1px 3.9px #0000002c, 5px 9px 31px #00000036;
+  box-shadow: .6px 1.1px 3.9px #2d04352c, 5px 9px 31px #29022e36;
   position: absolute;
   border: none;
 
@@ -366,6 +374,8 @@ const closePopover = (whichPopover: string) => {
   corner-shape: squircle;
 
   transition: all 0.1s;
+  border-top: 1px solid rgb(202, 91, 204);
+  /* border-left: 1px solid rgb(220, 150, 221); */
 
   &:popover-open {
     display: grid;
@@ -464,6 +474,8 @@ const closePopover = (whichPopover: string) => {
 }
 
 .tagline {
+  margin-top: var(--gap_xsmall);
+
   @media (width<650px) {
     flex-direction: column;
     margin-top: var(--gap_medium);
@@ -511,21 +523,24 @@ const closePopover = (whichPopover: string) => {
 }
 
 h1 {
-  /* font-family: Usual, var(--primary-font); */
+  /* font-family: var(--primary-font); */
   font-family: Georgia, "Times New Roman", Times, serif;
   color: #fff;
   font-size: 2.8rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   margin-top: 45px;
+  letter-spacing: -1px;
+  font-weight: 700;
 }
 
 h2 {
   /* font-family: var(--primary-font); */
   font-family: Georgia, "Times New Roman", Times, serif;
-
+  color: #dbc7fe;
   font-size: 2rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   margin: 0;
   padding: 0;
+
 }
 </style>

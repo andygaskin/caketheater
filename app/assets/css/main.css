@@ -36,7 +36,6 @@ body {
 }
 
 .flex_align {
-  color: #dbc7fe;
   display: flex;
   align-items: center;
   gap: var(--gap_small);
