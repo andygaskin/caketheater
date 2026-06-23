@@ -334,7 +334,7 @@ const closePopover = (whichPopover: string) => {
   border: none;
   background: none;
   cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--primary-font);
   font-size: 1.4rem;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.418);
   display: flex;
@@ -361,7 +361,7 @@ const closePopover = (whichPopover: string) => {
 } */
 
 .menu_dropdown {
-  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--primary-font);
   margin-top: var(--gap_small);
   padding: var(--gap_large);
   background: #f2ecf3;
@@ -407,9 +407,9 @@ const closePopover = (whichPopover: string) => {
       animation: fade_in 0.2s ease-out forwards;
       animation-delay: calc(sibling-index()*50ms);
 
-      font-size: 1.1rem;
-      font-family: "Funnel Sans", sans-serif;
-      font-weight: 100;
+      font-size: 1.2rem;
+      font-family: var(--primary-font);
+      font-weight: 500;
     }
 
     a {
@@ -523,19 +523,19 @@ const closePopover = (whichPopover: string) => {
 }
 
 h1 {
-  /* font-family: var(--primary-font); */
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: var(--primary-font);
+  /* font-family: Georgia, "Times New Roman", Times, serif; */
   color: #fff;
-  font-size: 2.8rem;
+  font-size: 3rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   margin-top: 45px;
-  letter-spacing: -1px;
-  font-weight: 700;
+  /* letter-spacing: -1px; */
+  /* font-weight: 700; */
 }
 
 h2 {
-  /* font-family: var(--primary-font); */
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: var(--primary-font);
+  /* font-family: Georgia, "Times New Roman", Times, serif; */
   color: #dbc7fe;
   font-size: 2rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);

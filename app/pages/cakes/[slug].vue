@@ -48,13 +48,15 @@ useSeoMeta({
 <template>
   <div class="page">
     <div class="detail_holder">
-      <div class="side">
-        <div v-if="cake">
-          <h1>{{ cake.title }}</h1>
-          <p>
-            <strong>{{ cake.baker.displayName }}</strong>
-            <span v-if="cake.baker.country">&nbsp;({{ countryName(cake?.baker.country, "en") }})</span>
-          </p>
+      <div class="title_container">
+        <div class="title">
+          <div v-if="cake">
+            <h1>{{ cake.title }}</h1>
+            <p>
+              <strong>{{ cake.baker.displayName }}</strong>
+              <span v-if="cake.baker.country">&nbsp;({{ countryName(cake?.baker.country, "en") }})</span>
+            </p>
+          </div>
         </div>
       </div>
       <!--Main cake-->
@@ -146,13 +148,24 @@ useSeoMeta({
   border: 1px solid rgb(134, 36, 163);
   border-radius: 5px;
   font-size: 0.9rem;
-  color: rgb(167, 120, 163);
-  padding: 4px;
+  color: rgb(199, 156, 195);
+  /* padding: 5px; */
+  height: 30px;
+  padding: var(--gap_small);
+  padding-bottom: 12px;
   text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: rgb(78, 1, 78);
   display: flex;
   align-items: center;
+  align-content: center;
+  transition: all 0.1s;
+
+  &:hover {
+    background: rgb(134, 36, 163);
+    color: #fff;
+    text-decoration: underline;
+  }
 }
 
 .detail_holder {
@@ -166,22 +179,64 @@ useSeoMeta({
 
 }
 
-.side {
+.title_container {
+
+  position: sticky;
+  top: 45px;
+  container-type: scroll-state;
   border-radius: 10px 10px 0 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-family: var(--primary-font);
+
+}
+
+.title {
   width: 99.5%;
   background: darkblue url("@/assets/images/blue_fabric.webp");
-  /* border-radius: 10px; */
   padding: var(--gap_medium);
   color: #fff;
   box-shadow:
     var(--box_shadow),
     inset 0 0 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
 
   @media (width<650px) {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
 }
+
+@container scroll-state(stuck: top) {
+  .title {
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: var(--gap_small);
+    width: 100%;
+    padding-left: var(--gap_medium);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+  }
+
+  .title h1 {
+    font-size: 2.7rem;
+  }
+}
+
+h1 {
+  color: #fff;
+  font-size: 3rem;
+
+  transition: all 0.2s ease;
+}
+
+
+
+
 
 .lamplit-parchment {
   opacity: 1;
@@ -253,11 +308,7 @@ useSeoMeta({
   }
 }
 
-h1 {
-  color: #fff;
-  font-size: 3rem;
-  font-family: "Funnel Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+
 
 p {
   font-family: var(--primary-font);
