@@ -15,7 +15,7 @@ const {
   { watch: [slug] },
 );
 
-// Optional 404 handling
+// 404 handling
 if (error.value) {
   throw createError({
     statusCode: 404,
