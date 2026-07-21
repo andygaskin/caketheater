@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   primevue: {
     options: {
       // ripple: true,
+      // unstyled: true, // Disables default style injection globally
       theme: {
         preset: Aura,
       },
