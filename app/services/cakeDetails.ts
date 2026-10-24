@@ -117,7 +117,10 @@ export async function fetchCakeDetail(slug: string): Promise<CakeDetail> {
       );
 
   if (!data.cake) {
-    throw new Error(data.error || "Cake not found.");
+    throw createError({
+      statusCode: 404,
+      statusMessage: data.error || "Cake not found.",
+    });
   }
 
   return normalizeCake(data.cake);

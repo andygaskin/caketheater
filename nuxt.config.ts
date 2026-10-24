@@ -41,13 +41,14 @@ export default defineNuxtConfig({
     },
   },
   css: ["primeicons/primeicons.css", "@/assets/css/main.css"],
-  // NOTE: This requires Nitro/Node hosting. Do not deploy as pure static (ie npm run generate) if we want /cakes SSR.
+  // Static pages plus browser-rendered cake details; no Nuxt server required.
   routeRules: {
     // SSG ("Static Site Generation" / prerender)
     "/": { prerender: true },
     "/categories/**": { prerender: true },
     "/contact": { prerender: true },
-    "/cakes/**": { prerender: true },
+    // Apache serves /200.html for these URLs; the browser fetches the cake.
+    "/cakes/**": { ssr: false, prerender: false },
 
     //SWR caching  ("Stale-While-Revalidate", show  cached version for x time until revalidating and serving fresh version)
     // "/cakes/**": { swr: 60 * 5 }, //5 minutes

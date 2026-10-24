@@ -29,6 +29,24 @@ body {
   background-color: #070611;
 }
 
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  color: #2f1068;
+  font-family: var(--primary-font);
+  transform: translateY(calc(-100% - 2rem));
+}
+
+.skip-link:focus {
+  transform: none;
+  outline: 3px solid #2f1068;
+  outline-offset: 3px;
+}
+
 .mobile_hide {
   @media (width<650px) {
     display: none;

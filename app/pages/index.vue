@@ -33,13 +33,22 @@ useHead({
     <div v-else>
       <!-- <h2>Featured Cakes</h2> -->
       <div class="main_card_holder">
-        <NuxtLink v-for="cake in data" :key="cake.slug" :to="`/cakes/${cake.slug}`" class="block_holder">
+        <NuxtLink
+          v-for="cake in data"
+          :key="cake.slug"
+          :to="`/cakes/${cake.slug}`"
+          class="block_holder"
+        >
           <div class="the_image">
-            <img :src="`/cake_images/${cake.cover_filename}.jpg`" :alt="cake.title">
+            <img
+              :src="`/cake_images/${cake.cover_filename}.jpg`"
+              :alt="cake.title"
+            />
           </div>
           <div class="project_title">
-            <strong>{{ cake.title }}</strong><br>
-            <span>by {{ cake.baker }}</span>
+            <strong>{{ cake.title }}</strong
+            ><br />
+            <!-- <span>by {{ cake.baker }}</span> -->
           </div>
         </NuxtLink>
       </div>

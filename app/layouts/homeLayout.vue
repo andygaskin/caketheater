@@ -5,7 +5,7 @@
 
     <AppHeader intro="true" />
 
-    <main class="main">
+    <main id="main-content" class="main" tabindex="-1">
       <div class="page_wrapper">
         <slot />
       </div>

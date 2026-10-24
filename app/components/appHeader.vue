@@ -543,4 +543,19 @@ h2 {
   padding: 0;
 
 }
+@media (prefers-reduced-motion: reduce) {
+  .bulb {
+    animation: none;
+    transform: none;
+  }
+
+  .bulb_glow.flicker,
+  .bulb_glow.power_down {
+    animation: none;
+  }
+
+  .bulb_glow.power_down {
+    opacity: 0;
+  }
+}
 </style>

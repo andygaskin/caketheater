@@ -9,26 +9,23 @@ const {
   data: cake,
   pending,
   error,
+  status,
+  refresh,
 } = await useAsyncData(
   () => `cake:${slug.value}`,
   () => fetchCakeDetail(slug.value),
-  { watch: [slug] },
+  { server: false, lazy: true },
 );
 
-// 404 handling
-if (error.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: "Cake not found. Sadge. (please try again later)",
-  });
-}
+// The reactive async-data key also fetches again when the slug changes.
+const notFound = computed(() => error.value?.statusCode === 404);
 
 useSeoMeta({
-  title: cake.value
+  title: () => cake.value
     ? `${cake.value.title} — Cake Theater`
     : "Cake — Cake Theater",
 
-  description: cake.value?.description?.slice(0, 160),
+  description: () => cake.value?.description?.slice(0, 160),
 });
 
 //If I want to preload the first image
@@ -50,7 +47,7 @@ useSeoMeta({
     <div class="detail_holder">
       <div class="title_container">
         <div class="title">
-          <div v-if="cake">
+          <div v-if="cake && !pending && !error">
             <h1>{{ cake.title }}</h1>
             <p>
               <strong>{{ cake.baker.displayName }}</strong>
@@ -63,7 +60,19 @@ useSeoMeta({
       <div class="lamplit-parchment">
         <div class="lamplit__bg" aria-hidden="true"></div>
         <div class="lamplit__content">
-          <div v-if="pending">Loading…</div>
+          <div v-if="pending || status === 'idle'" role="status">Loading…</div>
+
+          <div v-else-if="error" role="alert">
+            <template v-if="notFound">
+              <h1>Cake not found</h1>
+              <p>This cake may have been removed, or the link may be incorrect.</p>
+              <NuxtLink to="/">Browse cakes</NuxtLink>
+            </template>
+            <template v-else>
+              <p>Unable to load this cake. Please try again.</p>
+              <button type="button" @click="refresh()">Try again</button>
+            </template>
+          </div>
 
           <div v-else-if="cake">
 
@@ -138,9 +147,15 @@ useSeoMeta({
   padding: 0;
   margin: 0;
   display: flex;
+  flex-wrap: wrap;
   gap: var(--gap_small);
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.tags li {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .tags li a {
@@ -149,10 +164,9 @@ useSeoMeta({
   border-radius: 5px;
   font-size: 0.9rem;
   color: rgb(199, 156, 195);
-  /* padding: 5px; */
-  height: 30px;
-  padding: var(--gap_small);
-  padding-bottom: 12px;
+  min-height: 30px;
+  padding: var(--gap_xsmall) var(--gap_small);
+  overflow-wrap: anywhere;
   text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: rgb(78, 1, 78);

@@ -5,7 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/_db.php';
 require_once __DIR__ . '/_json.php';
 
-const CATEGORY_LIMIT = 12;
+const CATEGORY_LIMIT = 24;
 
 try {
     $db = ct_db();
