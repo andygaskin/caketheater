@@ -74,10 +74,10 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
-## Static deployment with client-rendered cake details
+## Static deployment with client-rendered categories and cake details
 
 Run `npm run generate` and deploy the contents of `.output/public`, including
-`200.html`. The homepage, categories, and contact page are prerendered. Cake
+`200.html`. The homepage and contact page are prerendered. Category listings and cake
 detail pages fetch data in the browser from the live PHP API; `npm run dev`
 continues to use the local mocks and does not require PHP/MySQL.
 
@@ -87,12 +87,25 @@ existing files/directories, add:
 ```apache
 # Let Nuxt handle cake detail URLs, including direct visits and refreshes.
 RewriteRule ^cakes/[^/]+/?$ /200.html [L]
+# Category listings, including Latest and numbered pages.
+RewriteRule ^categories/[^/]+(?:/latest)?(?:/page/[0-9]+)?/?$ /200.html [L]
 ```
 
-Remove old generated cake detail directories from the server when deploying
+Remove old generated category and cake detail directories from the server when deploying
 this change, since existing directories take precedence over this fallback.
-Keep the PHP API and uploaded cake images on the server. Static homepage and
-category listings still require regeneration to include new cakes.
+Keep the PHP API and uploaded cake images on the server. Only the static homepage
+requires regeneration to include new cakes.
+
+Deploy the updated `public/api/category.php` together with the frontend: its response
+is now `{ cakes, total, page, pageSize }`. It accepts `slug`, `page` (1-based), and
+`sort` (`popular` or `latest`), returning 24 cakes per page. Popular sorts by score;
+Latest sorts by creation date. Both use the cake ID to break ties.
+
+Category URLs are `/categories/birthday`, `/categories/birthday/page/2`,
+`/categories/birthday/latest`, and `/categories/birthday/latest/page/2`.
+Check these with direct visits, refresh, Back/Forward, sorting, and pagination.
+Development uses the existing mock collection, reversed for Latest because it has
+no timestamps or scores; production uses database sorting and counts.
 
 After deployment, check a direct cake URL, refresh it, navigate from the
 homepage, and try an unknown slug. Also check that an API failure shows a retry

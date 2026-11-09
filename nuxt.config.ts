@@ -41,13 +41,27 @@ export default defineNuxtConfig({
     },
   },
   css: ["primeicons/primeicons.css", "@/assets/css/main.css"],
-  // Static pages plus browser-rendered cake details; no Nuxt server required.
+  hooks: {
+    "pages:extend"(pages) {
+      // Reuse the listing component for each clean pagination/sort URL.
+      const categoryPage = pages.find((page) => page.file?.replaceAll("\\", "/").endsWith("/categories/[slug].vue"));
+      if (!categoryPage) throw new Error("Category listing route not found");
+      for (const [name, path] of [
+        ["category-page", "/categories/:slug/page/:page"],
+        ["category-latest", "/categories/:slug/latest"],
+        ["category-latest-page", "/categories/:slug/latest/page/:page"],
+      ] as const) {
+        pages.push({ name, path, file: categoryPage.file });
+      }
+    },
+  },
+  // Static pages plus browser-rendered categories and cake details.
   routeRules: {
     // SSG ("Static Site Generation" / prerender)
     "/": { prerender: true },
-    "/categories/**": { prerender: true },
+    "/categories/**": { ssr: false, prerender: false },
     "/contact": { prerender: true },
-    // Apache serves /200.html for these URLs; the browser fetches the cake.
+    // Apache serves /200.html for these URLs; the browser fetches the data.
     "/cakes/**": { ssr: false, prerender: false },
 
     //SWR caching  ("Stale-While-Revalidate", show  cached version for x time until revalidating and serving fresh version)
@@ -61,18 +75,5 @@ export default defineNuxtConfig({
     // "/admin/**": { ssr: false },
     // "/baker/**": { ssr: false },
 
-    // Consider SSG for default category pages (default sort, etc):
-
-    /* 
- prerender: {
-    routes: [
-      "/categories/birthday",
-      "/categories/wedding",
-      "/categories/halloween",
-    ],
-  },
-
-
-    */
   },
 });

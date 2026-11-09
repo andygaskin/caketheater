@@ -1,14 +1,41 @@
 <script setup lang="ts">
-import { fetchCategoryCakes } from "~/services/category";
+import { fetchCategoryCakes, CATEGORY_PAGE_SIZE } from "~/services/category";
+import type { CategorySort } from "~/services/category";
 import { findCategoryBySlug } from "@/constants/categories";
 import SelectButton from "primevue/selectbutton";
+import Paginator from "primevue/paginator";
+import type { PageState } from "primevue/paginator";
+import Skeleton from "primevue/skeleton";
 
 const sortOptions = ["Popular", "Latest"];
 
-const sort = ref("Popular");
-
 const route = useRoute();
 const slug = computed(() => route.params.slug as string);
+const page = computed(() => Number(route.params.page || 1));
+const sortKey = computed<CategorySort>(() => route.path.includes("/latest") ? "latest" : "popular");
+const heading = ref<HTMLElement | null>(null);
+
+definePageMeta({
+  validate: (route) => {
+    const page = String(route.params.page || "1");
+    return /^[1-9]\d*$/.test(page) && Number(page) <= 1000000;
+  },
+});
+
+function listingUrl(targetPage: number, sort: CategorySort = sortKey.value) {
+  return `/categories/${slug.value}${sort === "latest" ? "/latest" : ""}${targetPage > 1 ? `/page/${targetPage}` : ""}`;
+}
+
+const sort = computed({
+  get: () => sortKey.value === "latest" ? "Latest" : "Popular",
+  set: (value: string) => { void navigateTo(listingUrl(1, value === "Latest" ? "latest" : "popular")); },
+});
+
+async function changePage(event: PageState) {
+  await navigateTo(listingUrl(event.page + 1));
+  heading.value?.scrollIntoView({ block: "start" });
+  heading.value?.focus({ preventScroll: true });
+}
 
 const categoryMatch = computed(() => findCategoryBySlug(slug.value));
 
@@ -19,15 +46,16 @@ if (!categoryMatch.value) {
   });
 }
 
-const { data, pending, error } = await useAsyncData(
-  () => `category:${slug.value}`,
-  () => fetchCategoryCakes(categoryMatch.value!.category.slug),
-  { watch: [slug] },
+const { data, status, error, refresh } = await useAsyncData(
+  () => `category:${slug.value}:${sortKey.value}:${page.value}`,
+  () => fetchCategoryCakes(categoryMatch.value!.category.slug, page.value, sortKey.value),
+  { server: false },
 );
+const loading = computed(() => status.value === "idle" || status.value === "pending");
 
 useSeoMeta({
-  title: `${categoryMatch.value.category.name} Cakes - Cake Theater`,
-  description: `Browse ${categoryMatch.value.category.name.toLowerCase()} cakes on Cake Theater.`,
+  title: () => `${categoryMatch.value?.category.name} Cakes${page.value > 1 ? ` - Page ${page.value}` : ""} - Cake Theater`,
+  description: () => `Browse ${categoryMatch.value?.category.name.toLowerCase()} cakes on Cake Theater.`,
 });
 </script>
 
@@ -35,28 +63,37 @@ useSeoMeta({
   <div class="page">
     <div class="sort_holder">
       Sort by:
-      <SelectButton v-model="sort" :options="sortOptions" />
+      <SelectButton v-model="sort" :options="sortOptions" :allow-empty="false" aria-label="Sort cakes" />
     </div>
-    <h1>{{ categoryMatch?.category.name }} Cakes</h1>
+    <h1 ref="heading" tabindex="-1">{{ categoryMatch?.category.name }} Cakes</h1>
     <p class="body_text" style="color: white">
       {{ sort }} {{ categoryMatch?.category.name.toLowerCase() }} cakes 🎂
     </p>
 
     <!-- Loading -->
-    <p v-if="pending">Loading cakes...</p>
+    <div v-if="loading" aria-busy="true" aria-label="Loading cakes">
+      <p role="status">Loading cakes...</p>
+      <div class="main_card_holder" aria-hidden="true">
+        <Skeleton v-for="n in 6" :key="n" height="240px" border-radius="30px" />
+      </div>
+    </div>
 
     <!-- Error -->
     <div v-else-if="error">
       <p>Unable to load cakes.</p>
-      <pre style="white-space: pre-wrap">{{ error }}</pre>
+      <button type="button" @click="refresh()">Try again</button>
     </div>
 
     <!-- Success -->
 
     <div v-else>
+      <div v-if="!data?.cakes.length" class="empty_state">
+        <p>{{ page > 1 ? "There are no cakes on this page." : "No cakes in this category yet." }}</p>
+        <NuxtLink v-if="page > 1" :to="listingUrl(1)">Back to page 1</NuxtLink>
+      </div>
       <div class="main_card_holder">
         <NuxtLink
-          v-for="cake in data"
+          v-for="(cake, index) in data?.cakes"
           :key="cake.slug"
           :to="`/cakes/${cake.slug}`"
           class="block_holder"
@@ -65,6 +102,8 @@ useSeoMeta({
             <img
               :src="`/cake_images/${cake.cover_filename}.jpg`"
               :alt="cake.title"
+              :loading="index < 3 ? 'eager' : 'lazy'"
+              decoding="async"
             />
           </div>
           <div class="project_title">
@@ -74,10 +113,29 @@ useSeoMeta({
           </div>
         </NuxtLink>
       </div>
+      <Paginator
+        v-if="data && data.total > CATEGORY_PAGE_SIZE && data.cakes.length"
+        class="category_paginator"
+        :first="(page - 1) * CATEGORY_PAGE_SIZE"
+        :rows="CATEGORY_PAGE_SIZE"
+        :total-records="data.total"
+        :page-link-size="3"
+        template="PrevPageLink PageLinks NextPageLink CurrentPageReport"
+        current-page-report-template="Showing {first}–{last} of {totalRecords} cakes"
+        @page="changePage"
+      />
     </div>
   </div>
 </template>
 <style scoped>
+.category_paginator {
+  margin-top: var(--gap_large);
+}
+
+.empty_state {
+  color: white;
+}
+
 .sort_holder {
   font-family: var(--primary-font);
   color: #fff;
