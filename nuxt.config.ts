@@ -34,6 +34,19 @@ export default defineNuxtConfig({
           href: "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap",
         },
       ],
+      script: [
+        {
+          async: true,
+          src: "https://www.googletagmanager.com/gtm.js?id=GTM-MKBSJV62",
+        },
+        {
+          innerHTML: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          `,
+        },
+      ],
     },
     pageTransition: {
       name: "page",
@@ -44,7 +57,9 @@ export default defineNuxtConfig({
   hooks: {
     "pages:extend"(pages) {
       // Reuse the listing component for each clean pagination/sort URL.
-      const categoryPage = pages.find((page) => page.file?.replaceAll("\\", "/").endsWith("/categories/[slug].vue"));
+      const categoryPage = pages.find((page) =>
+        page.file?.replaceAll("\\", "/").endsWith("/categories/[slug].vue"),
+      );
       if (!categoryPage) throw new Error("Category listing route not found");
       for (const [name, path] of [
         ["category-page", "/categories/:slug/page/:page"],
@@ -74,6 +89,5 @@ export default defineNuxtConfig({
     // CSR ("Client Side Rendering")
     // "/admin/**": { ssr: false },
     // "/baker/**": { ssr: false },
-
   },
 });
