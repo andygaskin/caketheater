@@ -81,20 +81,37 @@ Run `npm run generate` and deploy the contents of `.output/public`, including
 detail pages fetch data in the browser from the live PHP API; `npm run dev`
 continues to use the local mocks and does not require PHP/MySQL.
 
-In the document-root `.htaccess`, after legacy redirects and rules that serve
-existing files/directories, add:
+Merge the rules in `deploy/apache-routes.conf` into the document-root `.htaccess`
+after any HTTPS/hostname redirects. Keep this order: the `/cakes` redirect and CSR
+fallbacks must run before the existing-directory check. This also prevents stale
+prerendered directories from overriding the CSR routes.
 
 ```apache
+RewriteEngine On
+RewriteRule ^cakes/?$ / [R=302,L]
+RewriteRule ^cake/([^/]+)/?$ /cakes/$1/ [R=301,L]
+
 # Let Nuxt handle cake detail URLs, including direct visits and refreshes.
 RewriteRule ^cakes/[^/]+/?$ /200.html [L]
 # Category listings, including Latest and numbered pages.
 RewriteRule ^categories/[^/]+(?:/latest)?(?:/page/[0-9]+)?/?$ /200.html [L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 ```
 
-Remove old generated category and cake detail directories from the server when deploying
-this change, since existing directories take precedence over this fallback.
+Old generated category and cake detail directories can be removed when deploying
+this change; the rules above take precedence over those directories.
 Keep the PHP API and uploaded cake images on the server. Only the static homepage
 requires regeneration to include new cakes.
+
+Deploy `200.html`, `index.html`, and the entire `_nuxt` directory from the same
+`npm run generate` output. Upload new hashed assets before replacing HTML, and
+retain previous hashed assets while cached pages may still reference them. A CSR
+page can return HTTP 200 but appear blank if the script referenced by `200.html`
+is missing. Verify that its `<script type="module" src="/_nuxt/...">` URL returns
+JavaScript with HTTP 200. Refresh/invalidate cached HTML after deployment if needed.
 
 Deploy the updated `public/api/category.php` together with the frontend: its response
 is now `{ cakes, total, page, pageSize }`. It accepts `slug`, `page` (1-based), and

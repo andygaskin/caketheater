@@ -1,3 +1,9 @@
+<script setup lang="ts">
+definePageMeta({
+  middleware: () => navigateTo("/", { replace: true, redirectCode: 302 }),
+});
+</script>
+
 <template>
-    <div class="page">Use this page if someone visits /cakes accidentally.</div>
+  <div />
 </template>
