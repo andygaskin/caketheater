@@ -25,4 +25,4 @@ logs
 public/cake_images
 
 # Local PHP database credentials
-/api/_db.php
+public/api/_db.php
