@@ -26,3 +26,5 @@ public/cake_images
 
 # Local PHP database credentials
 public/api/_db.php
+
+#test
